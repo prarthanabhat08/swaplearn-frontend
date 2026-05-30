@@ -14,6 +14,8 @@ export default function ChatScreen({ roomId, user, name, goBack, otherUserId, ro
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [incomingCall, setIncomingCall] = useState(null);
+  console.log("OTHER USER ID:", otherUserId);
+  console.log("ROLE:", role);
 
 const loadMessages = async () => {
   try {
@@ -78,27 +80,48 @@ const loadMessages = async () => {
     }
   };
 
-const startVideoCall = async () => {
-  const meetingRoom = `swaplearn_${roomId}`;
-  const url = `https://meet.jit.si/${meetingRoom}`;
+  const startVideoCall = async () => {
+    const meetingRoom = `swaplearn_${roomId}`;
+    const url = `https://meet.jit.si/${meetingRoom}`;
 
-  await fetch("https://swaplearn-backend.onrender.com/api/send-message/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      sender_id: user.user_id,
-      room_id: roomId,
-      text: url,
-      type: "call_request"
-    })
-  });
-};
+    await fetch(
+      "https://swaplearn-backend.onrender.com/api/send-message/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          sender_id: user.user_id,
+          room_id: roomId,
+          text: url,
+          type: "call_request"
+        })
+      }
+    );
 
-    // optional: open call after sending
+    setTimeout(() => {
+      endSession();
+    }, 10000);
+  };
+
+  const joinCall = (url) => {
+
+    Linking.openURL(url);
+
+    setTimeout(() => {
+      endSession();
+    }, 180000); // 3 minutes
+
+  };
   
 
   const endSession = async () => {
+
+    console.log("END SESSION CALLED");
+
     try {
+
       let teacher_id, learner_id;
 
       if (role === "teacher") {
@@ -109,24 +132,28 @@ const startVideoCall = async () => {
         learner_id = user.user_id;
       }
 
-      const res = await fetch("https://swaplearn-backend.onrender.com/api/end_session/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          teacher_id: teacher_id,
-          learner_id: learner_id,
-        }),
-      });
+      console.log("Teacher:", teacher_id);
+      console.log("Learner:", learner_id);
+
+      const res = await fetch("https://swaplearn-backend.onrender.com/api/end_session/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            teacher_id,
+            learner_id,
+          }),
+        }
+      );
 
       const data = await res.json();
-      console.log("Credits Updated:", data);
 
-      Alert.alert("Session Ended", "Credits updated successfully");
+      console.log("END SESSION RESPONSE:", data);
 
     } catch (err) {
-      console.log("Error:", err);
+      console.log("END SESSION ERROR:", err);
     }
   };
 
@@ -150,7 +177,7 @@ const startVideoCall = async () => {
 
         {/* 🔥 THIS IS THE IMPORTANT CHANGE */}
        {item.type === "video_call" || item.text?.includes("meet.jit.si") ? (
-          <TouchableOpacity onPress={() => Linking.openURL(item.text)}>
+          <TouchableOpacity onPress={() => joinCall(item.text)}>
             <Text style={{ color: "blue", fontWeight: "bold" }}>
               📹 Join Video Call
             </Text>
@@ -233,7 +260,17 @@ const startVideoCall = async () => {
             borderRadius: 10
           }}
         />
-
+        <TouchableOpacity
+          onPress={endSession}
+          style={{
+            backgroundColor: "red",
+            padding: 10,
+            margin: 10,
+            borderRadius: 10
+          }}
+        >
+          <Text style={{ color: "#fff" }}>TEST END SESSION</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={sendMessage}>
           <Text style={{ padding: 10, fontWeight: "bold" }}>
             Send

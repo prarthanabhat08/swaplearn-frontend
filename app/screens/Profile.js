@@ -16,22 +16,29 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState(user);
   const [availability, setAvailability] = useState({});
+  const [profileData, setProfileData] = useState({
+    credit: 0,
+    skills_learn_count: 0,
+    skills_teach_count: 0,
+  });
   console.log("CURRENT USER:", currentUser);
+  console.log("CURRENT USER ID:", currentUser?.user_id);
+
   const userData = currentUser
-    ? {
-        name: currentUser.username || currentUser.name || "User",
-        bio: "",
-        credits: 0,
-        learnt: 0,
-        taught: 0,
-      }
-    : {
-        name: "Guest",
-        bio: "",
-        credits: 0,
-        learnt: 0,
-        taught: 0,
-      };
+  ? {
+      name: currentUser.username || currentUser.name || "User",
+      bio: "",
+      credits: profileData.credit || 0,
+      learnt: profileData.skills_learn_count || 0,
+      taught: profileData.skills_teach_count || 0,
+    }
+  : {
+      name: "Guest",
+      bio: "",
+      credits: 0,
+      learnt: 0,
+      taught: 0,
+    };
 
 
   useEffect(() => {
@@ -42,7 +49,20 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
       .then(data => setSkills(data))
       .catch(err => console.log(err));
   }, [currentUser]);
+  useEffect(() => {
+    if (!currentUser?.user_id) return;
 
+    fetch(
+      `https://swaplearn-backend.onrender.com/api/get-profile/${currentUser.user_id}/`
+    )
+      .then(res => res.json())
+      .then(data => {
+        console.log("PROFILE DATA:", data);
+        setProfileData(data);
+      })
+      .catch(err => console.log(err));
+
+  }, [currentUser]);
 
   useEffect(() => {
       // disabled
