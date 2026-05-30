@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://swaplearn-backend.onrender.com/api";
 
 export default function Availability({ user, goBack }) {
 

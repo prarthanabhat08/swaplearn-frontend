@@ -17,7 +17,7 @@ export default function ChatScreen({ roomId, user, name, goBack, otherUserId, ro
 
 const loadMessages = async () => {
   try {
-    const res = await fetch(`http://127.0.0.1:8000/api/messages/${roomId}/`);
+    const res = await fetch(`https://swaplearn-backend.onrender.com/api/messages/${roomId}/`);
     const data = await res.json();
 
     setMessages(data);
@@ -60,7 +60,7 @@ const loadMessages = async () => {
     ]);
 
     try {
-      await fetch(`http://127.0.0.1:8000/api/send-message/`, {
+      await fetch(`https://swaplearn-backend.onrender.com/api/send-message/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -82,7 +82,7 @@ const startVideoCall = async () => {
   const meetingRoom = `swaplearn_${roomId}`;
   const url = `https://meet.jit.si/${meetingRoom}`;
 
-  await fetch("http://127.0.0.1:8000/api/send-message/", {
+  await fetch("https://swaplearn-backend.onrender.com/api/send-message/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -109,7 +109,7 @@ const startVideoCall = async () => {
         learner_id = user.user_id;
       }
 
-      const res = await fetch("http://127.0.0.1:8000/api/end_session/", {
+      const res = await fetch("https://swaplearn-backend.onrender.com/api/end_session/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

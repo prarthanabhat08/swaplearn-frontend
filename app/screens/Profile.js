@@ -16,10 +16,10 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState(user);
   const [availability, setAvailability] = useState({});
-
+  console.log("CURRENT USER:", currentUser);
   const userData = currentUser
     ? {
-        name: currentUser.username || "User",
+        name: currentUser.username || currentUser.name || "User",
         bio: "",
         credits: 0,
         learnt: 0,
@@ -37,7 +37,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
   useEffect(() => {
     if (!currentUser?.user_id) return;
 
-    fetch(`http://127.0.0.1:8000/api/user-skills/${currentUser.user_id}/`)
+    fetch(`https://swaplearn-backend.onrender.com/api/user-skills/${currentUser.user_id}/`)
       .then(res => res.json())
       .then(data => setSkills(data))
       .catch(err => console.log(err));
@@ -59,7 +59,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
 
     console.log("FETCH USERNAME:", username);
 
-    fetch(`http://127.0.0.1:8000/api/get_calendar_slots/?username=${username}`)
+    fetch(`https://swaplearn-backend.onrender.com/api/get_calendar_slots/?username=${username}`)
       .then(res => res.json())
       .then(data => {
         console.log("DATA FROM API:", data);
