@@ -51,7 +51,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
   }, [currentUser]);
   useEffect(() => {
     if (!currentUser?.user_id) return;
-
+    console.log("FETCHING PROFILE FOR:", currentUser.user_id);
     fetch(
       `https://swaplearn-backend.onrender.com/api/get-profile/${currentUser.user_id}/`
     )
