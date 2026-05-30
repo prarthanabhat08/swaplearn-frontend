@@ -1,98 +1,254 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import Home from '../screens/Home';
+import About from '../screens/About';
+import Discover from '../screens/Discover';
+import Match from '../screens/Match';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
+import Profile from '../screens/Profile';
+import Messages from '../screens/Messages';
+import Requests from '../screens/Requests';
+import ChatScreen from '../screens/ChatScreen';
+import Availability from '../screens/Availability';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+type UserType = {
+  user_id: number;
+  name: string;
+  username?: string;
+};
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+export default function Index() {
+  const [screen, setScreen] = useState<string>('home');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<UserType | null>(null);
+  const [previousScreen, setPreviousScreen] = useState<string>('home');
+
+
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedName, setSelectedName] = useState<string>("");
+
+  console.log("CURRENT SCREEN:", screen);
+  console.log("USER IN INDEX:", user);
+  
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.userSelect = "none";
+      document.body.style.caretColor = "transparent";
+    }
+  }, []);
+
+  const handleLoginSuccess = (userData: UserType) => {
+    console.log("✅ LOGIN SUCCESS:", userData);
+
+    setUser(userData);
+    setIsLoggedIn(true);
+
+    setTimeout(() => {
+      setScreen('home');
+    }, 100); // small delay ensures state update
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUser(null);
+    setScreen('login');
+  };
+
+
+  const goTo = (next: string) => {
+    setPreviousScreen(screen);
+    setScreen(next);
+  };
+
+  const openChat = (roomId: string, name: string) => {
+    console.log("OPEN CHAT CLICKED:", roomId);
+
+    if (!roomId) {
+      console.log(" ROOM ID MISSING");
+      return;
+    }
+
+    setSelectedRoom(roomId);
+    setSelectedName(name);
+    setScreen('chat');
+  };
+
+  if (screen === 'login') {
+    return (
+      <Login
+        switchToRegister={() => setScreen('register')}
+        onLoginSuccess={handleLoginSuccess}
+        goBack={() => setScreen('discover')}
+      />
+    );
+  }
+
+  if (screen === 'register') {
+    return (
+      <Register
+        switchToLogin={() => setScreen('login')}
+        goBack={() => setScreen('home')}
+      />
+    );
+  }
+
+  if (screen === 'about') {
+    return (
+      <About
+        isLoggedIn={isLoggedIn}
+        goToHome={() => goTo('home')}
+        goToAbout={() => goTo('about')}
+        goToDiscover={() => goTo('discover')}
+        goToMatch={() => goTo('match')}
+        goToLogin={() => goTo('login')}
+        goToRegister={() => goTo('register')}
+        goToProfile={() => goTo('profile')}
+        goToRequests={() => goTo('requests')}
+        goToMessages={() => goTo("messages")}
+      />
+    );
+  }
+
+  if (screen === 'discover') {
+    return (
+      <Discover
+        user={user}
+        isLoggedIn={isLoggedIn}
+        goToHome={() => goTo('home')}
+        goToAbout={() => goTo('about')}
+        goToDiscover={() => goTo('discover')}
+        goToMatch={() => goTo('match')}
+        goToLogin={() => goTo('login')}
+        goToRegister={() => goTo('register')}
+        goToProfile={() => goTo('profile')}
+        goToRequests={() => goTo('requests')}
+        goToMessages={() => goTo("messages")}
+      />
+    );
+  }
+
+  if (screen === 'match') {
+    return (
+      <Match
+        user={user}
+        isLoggedIn={isLoggedIn}
+        goToHome={() => goTo('home')}
+        goToAbout={() => goTo('about')}
+        goToDiscover={() => goTo('discover')}
+        goToMatch={() => goTo('match')}
+        goToLogin={() => goTo('login')}
+        goToRegister={() => goTo('register')}
+        goToProfile={() => goTo('profile')}
+        goToRequests={() => goTo('requests')}
+        goToMessages={() => goTo("messages")}
+      />
+    );
+  }
+
+  if (screen === 'profile') {
+    return (
+      <Profile
+        user={user}
+        isLoggedIn={isLoggedIn}
+        handleLogout={handleLogout}
+        previousScreen={previousScreen}
+        setScreen={setScreen}
+        goToHome={() => goTo('home')}
+        goToAbout={() => goTo('about')}
+        goToDiscover={() => goTo('discover')}
+        goToMatch={() => goTo('match')}
+        goToProfile={() => goTo('profile')}
+        goToRequests={() => goTo('requests')}
+        goToMessages={() => goTo("messages")}
+      />
+    );
+  }
+
+  if (screen === 'messages') {
+    if (!user) {
+      console.log(" BLOCKED: user is null");
+      return (
+        <Login
+          switchToRegister={() => setScreen('register')}
+          onLoginSuccess={handleLoginSuccess}
+          goBack={() => setScreen('home')}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+      );
+    }
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    return (
+      <Messages
+        user={user}
+        isLoggedIn={isLoggedIn}
+        openChat={openChat}
+        screen={screen}
+        goToHome={() => goTo('home')}
+        goToAbout={() => goTo('about')}
+        goToDiscover={() => goTo('discover')}
+        goToMatch={() => goTo('match')}
+        goToProfile={() => goTo('profile')}
+        goToMessages={() => goTo('messages')}
+        goToLogin={() => goTo('login')}
+        goToRegister={() => goTo('register')}
+        goToRequests={() => goTo('requests')}
+      />
+    );
+  }
+  
+
+  if (screen === 'availability') {
+    return (
+      <Availability
+        user={user}
+        goBack={() => setScreen('profile')}
+      />
+    );
+  }
+
+  if (screen === 'chat') {
+    return (
+      <ChatScreen
+        roomId={selectedRoom}
+        user={user}
+        name={selectedName}
+        otherUserId={selectedUserId}  
+        role={"learner"}             
+        goBack={() => setScreen('messages')}
+      />
+    );
+  }
+
+  if (screen === 'requests') {
+    return (
+      <Requests
+        user={user}
+        isLoggedIn={isLoggedIn}
+        previousScreen={previousScreen}
+        setScreen={setScreen}
+        goToHome={() => goTo('home')}
+        goToAbout={() => goTo('about')}
+        goToDiscover={() => goTo('discover')}
+        goToMatch={() => goTo('match')}
+        goToProfile={() => goTo('profile')}
+        goToRequests={() => goTo('requests')}
+        goToMessages={() => goTo("messages")}
+      />
+    );
+  }
+
+  return (
+    <Home
+      isLoggedIn={isLoggedIn}
+      goToLogin={() => goTo('login')}
+      goToRegister={() => goTo('register')}
+      goToHome={() => goTo('home')}
+      goToAbout={() => goTo('about')}
+      goToDiscover={() => goTo('discover')}
+      goToMatch={() => goTo('match')}
+      goToMessages={() => goTo('messages')}
+      goToProfile={() => goTo('profile')}
+      goToRequests={() => goTo('requests')}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
