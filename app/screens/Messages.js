@@ -31,7 +31,7 @@ export default function Messages({ openChat, user, screen, ...props }){
 
     try {
       const res = await fetch(
-        `https://swaplearn-backend.onrender.com/api/chats/${user.user_id}/`
+        `http://127.0.0.1:8000/api/chats/${user.user_id}/`
       );
 
       console.log("STATUS:", res.status);
@@ -91,7 +91,7 @@ export default function Messages({ openChat, user, screen, ...props }){
 
     try {
       const res = await fetch(
-        `https://swaplearn-backend.onrender.com/api/search-users/`
+        `http://127.0.0.1:8000/api/search-users/`
       );
 
       const data = await res.json();

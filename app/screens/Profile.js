@@ -37,7 +37,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
   useEffect(() => {
     if (!currentUser?.user_id) return;
 
-    fetch(`https://swaplearn-backend.onrender.com/api/user-skills/${currentUser.user_id}/`)
+    fetch(`http://127.0.0.1:8000/api/user-skills/${currentUser.user_id}/`)
       .then(res => res.json())
       .then(data => setSkills(data))
       .catch(err => console.log(err));
@@ -45,14 +45,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
 
 
   useEffect(() => {
-    if (!user?.user_id) return;
-
-    fetch(`https://swaplearn-backend.onrender.com/api/get-user/${user.user_id}/`)
-      .then(res => res.json())
-      .then(data => {
-        setCurrentUser(data);
-      })
-      .catch(err => console.log(err));
+      // disabled
   }, []);
 
   // ONLY CHANGE IS IN THIS useEffect DEPENDENCY
@@ -66,7 +59,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
 
     console.log("FETCH USERNAME:", username);
 
-    fetch(`https://swaplearn-backend.onrender.com/api/get_calendar_slots/?username=${username}`)
+    fetch(`http://127.0.0.1:8000/api/get_calendar_slots/?username=${username}`)
       .then(res => res.json())
       .then(data => {
         console.log("DATA FROM API:", data);

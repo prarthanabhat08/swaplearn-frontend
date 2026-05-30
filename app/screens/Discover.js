@@ -17,7 +17,7 @@ export default function Discover({ user, isLoggedIn, ...props }) {
 
   useEffect(() => {
 
-    fetch(`https://swaplearn-backend.onrender.com/api/discover/${user?.user_id || 0}/`)
+    fetch(`http://127.0.0.1:8000/api/discover/${user?.user_id || 0}/`)
       .then(res => res.json())
       .then(data => {
         console.log("DISCOVER DATA:", data);
@@ -49,7 +49,7 @@ export default function Discover({ user, isLoggedIn, ...props }) {
 
     //  SEND REQUEST
     try {
-      await fetch("https://swaplearn-backend.onrender.com/api/send-request/", {
+      await fetch("http://127.0.0.1:8000/api/send-request/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

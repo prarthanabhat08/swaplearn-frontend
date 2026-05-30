@@ -54,7 +54,7 @@ export default function EditProfile({ user, onSave, onCancel }) {
 
   const handleSave = async () => {
     try {
-      const res = await fetch("https://swaplearn-backend.onrender.com/api/update-profile/", {
+      const res = await fetch("http://127.0.0.1:8000/api/update-profile/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
