@@ -14,7 +14,7 @@ export default function Login({ switchToRegister, onLoginSuccess, goBack }) {
   }
 
   try {
-    const response = await fetch('http://localhost:8000/api/login/', {
+    const response = await fetch('https://swaplearn-backend.onrender.com/api/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

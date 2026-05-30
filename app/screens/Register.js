@@ -64,7 +64,7 @@ export default function Register({ switchToLogin, goBack }) {
 
     try {
 
-      const response = await fetch("http://127.0.0.1:8000/api/add-user/", {
+      const response = await fetch("https://swaplearn-backend.onrender.com/api/add-user/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export default function Register({ switchToLogin, goBack }) {
       const userId = data.id;
 
 
-      const skillResponse = await fetch("http://127.0.0.1:8000/api/save-skills/", {
+      const skillResponse = await fetch("https://swaplearn-backend.onrender.com/api/save-skills/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

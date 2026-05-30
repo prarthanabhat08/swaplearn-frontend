@@ -16,7 +16,7 @@ export default function Requests({ user, isLoggedIn, ...props }) {
   const loadRequests = () => {
     if (!user) return;
 
-    fetch(`http://127.0.0.1:8000/api/requests/${user.user_id}/`)
+    fetch(`https://swaplearn-backend.onrender.com/api/requests/${user.user_id}/`)
       .then(res => res.json())
       .then(data => setRequests(data))
       .catch(err => console.log(err));
@@ -29,7 +29,7 @@ export default function Requests({ user, isLoggedIn, ...props }) {
 
   const acceptRequest = async (id) => {
     try {
-      await fetch("http://127.0.0.1:8000/api/accept-request/", {
+      await fetch("https://swaplearn-backend.onrender.com/api/accept-request/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export default function Requests({ user, isLoggedIn, ...props }) {
 
   const rejectRequest = async (id) => {
     try {
-      await fetch("http://127.0.0.1:8000/api/reject-request/", {
+      await fetch("https://swaplearn-backend.onrender.com/api/reject-request/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

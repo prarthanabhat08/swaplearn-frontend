@@ -15,7 +15,7 @@ export default function Match({ user, isLoggedIn, ...props }) {
   useEffect(() => {
     if (!user) return;
 
-    fetch(`http://127.0.0.1:8000/api/match/${user.user_id}/`)
+    fetch(`https://swaplearn-backend.onrender.com/api/match/${user.user_id}/`)
       .then(res => res.json())
       .then(data => setMatches(data))
       .catch(err => console.log(err));
@@ -28,7 +28,7 @@ export default function Match({ user, isLoggedIn, ...props }) {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/send-request/", {
+      const res = await fetch("https://swaplearn-backend.onrender.com/api/send-request/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
