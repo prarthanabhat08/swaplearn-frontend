@@ -103,7 +103,7 @@ export default function Discover({ user, isLoggedIn, ...props }) {
                 <Text style={styles.name}>{u.name}</Text>
 
                 <Text style={styles.credits}>
-                  Credits: {u.credits || 0}
+                  Credits: {u.credit || 0}
                 </Text>
 
                 <Text style={styles.info}>
@@ -169,7 +169,7 @@ export default function Discover({ user, isLoggedIn, ...props }) {
               <View style={styles.statsRow}>
                 <View style={styles.statBox}>
                   <Text style={styles.statNumber}>
-                    {selectedUser.credits || 0}
+                    {selectedUser.credit || 0}
                   </Text>
                   <Text style={styles.statLabel}>Credits</Text>
                 </View>
