@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 export default function ChatScreen({ roomId, user, name, goBack, otherUserId, role }) {
-
+  const [showInstruction, setShowInstruction] = useState(false);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [incomingCall, setIncomingCall] = useState(null);
@@ -81,6 +81,7 @@ const loadMessages = async () => {
   };
 
   const startVideoCall = async () => {
+    setShowInstruction(true);
     const meetingRoom = `swaplearn_${roomId}`;
     const url = `https://meet.jit.si/${meetingRoom}`;
 
@@ -102,18 +103,20 @@ const loadMessages = async () => {
 
     setTimeout(() => {
       endSession();
-    }, 10000);
-  };
-
-  const joinCall = (url) => {
-
-    Linking.openURL(url);
-
-    setTimeout(() => {
-      endSession();
     }, 180000); // 3 minutes
 
-  };
+  };  
+
+
+    const joinCall = (url) => {
+
+      Linking.openURL(url);
+
+      setTimeout(() => {
+        endSession();
+      }, 180000); // 3 minutes
+
+    };
   
 
   const endSession = async () => {
@@ -175,13 +178,26 @@ const loadMessages = async () => {
         maxWidth: "70%"
       }}>
 
-        {/* 🔥 THIS IS THE IMPORTANT CHANGE */}
+      {/* 🔥 THIS IS THE IMPORTANT CHANGE */}
        {item.type === "video_call" || item.text?.includes("meet.jit.si") ? (
-          <TouchableOpacity onPress={() => joinCall(item.text)}>
-            <Text style={{ color: "blue", fontWeight: "bold" }}>
-              📹 Join Video Call
+          <View>
+            <TouchableOpacity onPress={() => joinCall(item.text)}>
+              <Text style={{ color: "blue", fontWeight: "bold" }}>
+                📹 Join Video Call
+              </Text>
+            </TouchableOpacity>
+
+            <Text
+              style={{
+                fontSize: 11,
+                color: "#03030a",
+                marginTop: 5,
+                maxWidth: 250
+              }}
+            >
+              IMPORTANT : After completing the class, leave the video call and return to this chat screen. Then click "END SESSION" to update credits.
             </Text>
-          </TouchableOpacity>
+          </View>
         ) : (
           <Text style={{ color: isMe ? "#fff" : "#000" }}>
             {item.text}
@@ -232,7 +248,7 @@ const loadMessages = async () => {
             📹 Call
           </Text>
         </TouchableOpacity>
-
+       
       </View>
 
       {/* CHAT LIST */}
@@ -245,6 +261,7 @@ const loadMessages = async () => {
           backgroundColor: "#f0f4f0"
         }}
       />
+
 
       {/* MESSAGE INPUT */}
       <View style={{ flexDirection: "row", padding: 10 }}>
@@ -269,9 +286,15 @@ const loadMessages = async () => {
             borderRadius: 10
           }}
         >
-          <Text style={{ color: "#fff" }}>TEST END SESSION</Text>
+          <Text style={{ color: "#fff" }}>END SESSION</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={sendMessage}>
+        <TouchableOpacity
+          onPress={sendMessage}
+          style={{
+            justifyContent: "flex-end",
+            paddingBottom: 11
+          }}
+        >
           <Text style={{ padding: 10, fontWeight: "bold" }}>
             Send
           </Text>

@@ -123,8 +123,12 @@ export default function Messages({ openChat, user, screen, ...props }){
       <TouchableOpacity
         style={styles.chatCard}
         onPress={() => {
-          console.log("CLICKED:", item);
-          openChat && openChat(item.room_id, item.name);
+          console.log("CLICKED OBJECT =", JSON.stringify(item, null, 2));
+          openChat && openChat(
+            item.room_id,
+            item.name,
+            item.other_user_id
+          );
         }}
       >
         <View style={styles.avatar}>
@@ -171,7 +175,11 @@ export default function Messages({ openChat, user, screen, ...props }){
               {item.isAccepted ? (
                 <TouchableOpacity
                   onPress={() =>
-                    openChat(item.room_id, item.name)
+                    openChat(
+                      item.room_id,
+                      item.name,
+                      item.other_user_id
+                    )
                   }
                 >
                   <Text style={{ color: 'green' }}>Start Chat</Text>

@@ -25,7 +25,7 @@ export default function Index() {
 
 
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [selectedName, setSelectedName] = useState<string>("");
 
   console.log("CURRENT SCREEN:", screen);
@@ -61,7 +61,11 @@ export default function Index() {
     setScreen(next);
   };
 
-  const openChat = (roomId: string, name: string) => {
+  const openChat = (
+    roomId: string,
+    name: string,
+    userId: number
+  ) => {
     console.log("OPEN CHAT CLICKED:", roomId);
 
     if (!roomId) {
@@ -71,6 +75,7 @@ export default function Index() {
 
     setSelectedRoom(roomId);
     setSelectedName(name);
+    setSelectedUserId(userId);
     setScreen('chat');
   };
 
