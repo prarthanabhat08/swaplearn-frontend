@@ -195,7 +195,7 @@ const loadMessages = async () => {
                 maxWidth: 250
               }}
             >
-              IMPORTANT : After completing the class, leave the video call and return to this chat screen. Then click "END SESSION" to update credits.
+              IMPORTANT: If your learning session requires multiple classes over several days, continue using video calls as needed. Click "END SESSION" only after the entire teaching/learning process is fully completed. This action updates credits and marks the session as finished.
             </Text>
           </View>
         ) : (
