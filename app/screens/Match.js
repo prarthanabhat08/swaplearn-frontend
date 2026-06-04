@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
   },
-
   backText: {
     fontSize: 12,
     color: '#151a3c',

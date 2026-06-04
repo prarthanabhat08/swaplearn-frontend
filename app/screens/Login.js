@@ -30,7 +30,7 @@ export default function Login({ switchToRegister, onLoginSuccess, goBack }) {
     if (data.status === "success") {
       alert("Login Successful ✅");
       console.log("User:", data);
-      onLoginSuccess(data);   // ✅ only now login happens
+      onLoginSuccess(data);   
     } else {
       alert("Invalid Username or Password ❌");
     }

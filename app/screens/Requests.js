@@ -118,7 +118,6 @@ export default function Requests({ user, isLoggedIn, ...props }) {
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

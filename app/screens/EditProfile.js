@@ -82,7 +82,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
 
         <h2 style={styles.heading}>Edit Profile</h2>
 
-        {/* USERNAME */}
         <label style={styles.label}>Username</label>
         <input
           value={name}
@@ -90,7 +89,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
           style={styles.input}
         />
 
-        {/* EMAIL */}
         <label style={styles.label}>Email</label>
         <input
           value={email}
@@ -98,7 +96,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
           style={styles.input}
         />
 
-        {/* TEACH */}
         <h3 style={styles.subHeading}>Teach Skills</h3>
         <div style={styles.skillBar}>
           {teachSkills.map((item, index) => (
@@ -113,7 +110,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
           }}>+ Add</button>
         </div>
 
-        {/* LEARN */}
         <h3 style={styles.subHeading}>Learn Skills</h3>
         <div style={styles.skillBar}>
           {learnSkills.map((item, index) => (
@@ -128,7 +124,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
           }}>+ Add</button>
         </div>
 
-        {/* FLOW */}
         {step === "category" && Object.keys(categories).map((cat) => (
           <div key={cat} style={styles.option} onClick={() => {
             setSelectedCategory(cat);
@@ -149,7 +144,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
           </div>
         ))}
 
-        {/* BUTTONS */}
         <div style={styles.btnRow}>
           <button onClick={handleSave} style={styles.saveBtn}>Save Changes</button>
           <button onClick={onCancel} style={styles.cancelBtn}>Cancel</button>
@@ -160,7 +154,6 @@ export default function EditProfile({ user, onSave, onCancel }) {
   );
 }
 
-/* STYLES */
 
 const styles = {
   container: {

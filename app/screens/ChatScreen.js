@@ -24,7 +24,6 @@ const loadMessages = async () => {
 
     setMessages(data);
 
-    // 🔥 CHECK FOR INCOMING CALL HERE
     const call = data.find(
       m => m.type === "call_request" && m.status === "pending"
     );
@@ -107,7 +106,6 @@ const loadMessages = async () => {
 
   };  
 
-
     const joinCall = (url) => {
 
       Linking.openURL(url);
@@ -178,7 +176,6 @@ const loadMessages = async () => {
         maxWidth: "70%"
       }}>
 
-      {/* 🔥 THIS IS THE IMPORTANT CHANGE */}
        {item.type === "video_call" || item.text?.includes("meet.jit.si") ? (
           <View>
             <TouchableOpacity onPress={() => joinCall(item.text)}>
@@ -234,7 +231,6 @@ const loadMessages = async () => {
           </Text>
         </View>
 
-        {/* 🎥 VIDEO CALL BUTTON */}
         <TouchableOpacity
           onPress={startVideoCall}
           style={{
@@ -251,7 +247,6 @@ const loadMessages = async () => {
        
       </View>
 
-      {/* CHAT LIST */}
       <FlatList
         data={messages}
         renderItem={renderMessage}
@@ -262,8 +257,6 @@ const loadMessages = async () => {
         }}
       />
 
-
-      {/* MESSAGE INPUT */}
       <View style={{ flexDirection: "row", padding: 10 }}>
         <TextInput
           value={text}

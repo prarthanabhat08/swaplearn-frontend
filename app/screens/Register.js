@@ -80,12 +80,11 @@ export default function Register({ switchToLogin, goBack }) {
       const data = await response.json();
 
       if (!response.ok) {
-        alert("User creation failed ❌");
+        alert(data.message || data.error || "Server error");
         return;
       }
 
       const userId = data.id;
-
 
       const skillResponse = await fetch("https://swaplearn-backend.onrender.com/api/save-skills/", {
         method: "POST",

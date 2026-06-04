@@ -21,14 +21,12 @@ export default function Availability({ user, goBack }) {
 
   const [selected, setSelected] = useState({});
 
-  // ✅ CLEAN USERNAME (SAME EVERYWHERE)
   const getUsername = () => {
     return (user?.username || user?.name || "")
       .replace(/\s/g, "")
       .toLowerCase();
   };
 
-  // ---------------- TOGGLE SLOT ----------------
   const toggleSlot = (day, time) => {
     const daySlots = selected[day] || [];
 
@@ -42,7 +40,6 @@ export default function Availability({ user, goBack }) {
     });
   };
 
-  // ---------------- SAVE ----------------
   const save = async () => {
     let payload = [];
 
@@ -73,7 +70,6 @@ export default function Availability({ user, goBack }) {
     }
   };
 
-  // ---------------- FETCH ----------------
   const fetchAvailability = async () => {
     try {
       const username = getUsername();   // ✅ FIXED
@@ -114,7 +110,6 @@ export default function Availability({ user, goBack }) {
     fetchAvailability();
   }, []);
 
-  // ---------------- UI ----------------
   return (
     <ScrollView style={styles.container}>
 
@@ -158,7 +153,6 @@ export default function Availability({ user, goBack }) {
   );
 }
 
-// ---------------- STYLES ----------------
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 10, backgroundColor: '#f4f6fb' },
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10 },

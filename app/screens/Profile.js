@@ -65,10 +65,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
   }, [currentUser]);
 
   useEffect(() => {
-      // disabled
   }, []);
-
-  // ONLY CHANGE IS IN THIS useEffect DEPENDENCY
 
   useEffect(() => {
     if (!currentUser) return;
@@ -104,7 +101,7 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
       {isEditing ? (
 
         <EditProfile
-          user={currentUser}   // ✅ PASS currentUser
+          user={currentUser}  
           onSave={(updatedUser) => {
 
             setCurrentUser({
@@ -124,7 +121,6 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
 
           <Navbar {...props} currentPage="profile" goToRequests={goToRequests} />
 
-          {/* HEADER */}
           <View style={styles.headerCard}>
 
             <TouchableOpacity 
@@ -147,7 +143,6 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
               <Stat number={userData.taught} label="Taught" />
             </View>
 
-            {/* ACTION BUTTONS */}
             <View style={styles.actions}>
               <TouchableOpacity
                 style={styles.editBtn}
@@ -167,7 +162,6 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
 
           </View>
 
-          {/* TABS */}
           <View style={styles.tabs}>
             <Tab title="Skills" active={activeTab === 'skills'} onPress={() => setActiveTab('skills')} />
             <Tab title="Teaching" active={activeTab === 'teaching'} onPress={() => setActiveTab('teaching')} />
@@ -175,7 +169,6 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
             <Tab title="Feedback" active={activeTab === 'feedback'} onPress={() => setActiveTab('feedback')} />
           </View>
 
-          {/* CONTENT */}
           <View style={styles.section}>
             {activeTab === 'skills' && <SkillsSection skills={skills} />}
             {activeTab === 'teaching' && <Empty title="Teaching Sessions" />}
@@ -210,8 +203,6 @@ export default function ProfilePage({ user, goToRequests, handleLogout, ...props
     </>
   );
 }
-
-
 
 const Stat = ({ number, label }) => (
   <View style={styles.stat}>

@@ -14,10 +14,8 @@ export default function About(props) {
   return (
     <ScrollView style={styles.container}>
 
-      {/* NAVBAR */}
       <Navbar {...props} currentPage="about" />
 
-      {/* HERO */}
       <View style={styles.hero}>
         <TouchableOpacity 
           style={styles.backButton}
@@ -34,7 +32,6 @@ export default function About(props) {
         </Text>
       </View>
 
-      {/* CARD SECTIONS */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Our Mission</Text>
         <Text style={styles.cardText}>
@@ -60,7 +57,6 @@ export default function About(props) {
         </Text>
       </View>
 
-      {/* FEATURE HIGHLIGHTS */}
       <View style={styles.featuresRow}>
         <View style={styles.featureBox}>
           <Text style={styles.featureNumber}>100+</Text>
@@ -78,7 +74,6 @@ export default function About(props) {
         </View>
       </View>
 
-      {/* FOOTER */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
           © SwapLearn. All rights reserved.
