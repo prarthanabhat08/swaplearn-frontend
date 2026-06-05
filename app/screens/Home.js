@@ -43,14 +43,6 @@ export default function Home({
         currentPage="home"
       />
 
-      <View style={styles.searchContainer}>
-        <TextInput
-          placeholder="Search here..."
-          value={searchText}
-          onChangeText={setSearchText}
-          style={styles.searchInput}
-        />
-      </View>
 
       <View style={styles.hero}>
         <Text style={styles.heroTitle}>Teach, Learn,</Text>
@@ -106,7 +98,7 @@ export default function Home({
                 if (!isLoggedIn) {
                   goToLogin();   
                 } else {
-                  alert('Request Sent!'); 
+                  alert('Explore discover'); 
                 }
               }}
             >
