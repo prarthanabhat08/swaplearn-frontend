@@ -72,7 +72,7 @@ export default function Availability({ user, goBack }) {
 
   const fetchAvailability = async () => {
     try {
-      const username = getUsername();   // ✅ FIXED
+      const username = getUsername();   
 
       console.log("FETCH USERNAME:", username);
 
@@ -88,7 +88,7 @@ export default function Availability({ user, goBack }) {
 
       data.forEach(item => {
         const day = item.day;
-        const time = item.time;   // ✅ FIXED (NOT slots)
+        const time = item.time;   
 
         if (!mapped[day]) {
           mapped[day] = [];
