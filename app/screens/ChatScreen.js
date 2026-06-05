@@ -252,7 +252,17 @@ const loadMessages = async () => {
             borderRadius: 10
           }}
         />
-        
+        <TouchableOpacity
+          onPress={endSession}
+          style={{
+            backgroundColor: "red",
+            padding: 10,
+            margin: 10,
+            borderRadius: 10
+          }}
+        >
+          <Text style={{ color: "#fff" }}>END SESSION</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={sendMessage}
           style={{
