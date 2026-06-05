@@ -175,14 +175,14 @@ export default function Discover({ user, isLoggedIn, ...props }) {
                   <Text style={styles.statNumber}>
                     {selectedUser.teach?.length || 0}
                   </Text>
-                  <Text style={styles.statLabel}>Taught</Text>
+                  <Text style={styles.statLabel}>Can Teach</Text>
                 </View>
 
                 <View style={styles.statBox}>
                   <Text style={styles.statNumber}>
                     {selectedUser.learn?.length || 0}
                   </Text>
-                  <Text style={styles.statLabel}>Learned</Text>
+                  <Text style={styles.statLabel}>Want to Learn</Text>
                 </View>
               </View>
 

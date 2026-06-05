@@ -100,19 +100,11 @@ const loadMessages = async () => {
       }
     );
 
-    setTimeout(() => {
-      endSession();
-    }, 180000); // 3 minutes
-
   };  
 
     const joinCall = (url) => {
 
       Linking.openURL(url);
-
-      setTimeout(() => {
-        endSession();
-      }, 180000); // 3 minutes
 
     };
   
@@ -159,9 +151,8 @@ const loadMessages = async () => {
   };
 
 
-  const handleBack = async () => {
-    await endSession();  // 
-    goBack();
+  const handleBack = () => {
+      goBack();
   };
 
  const renderMessage = ({ item }) => {
