@@ -175,16 +175,7 @@ const loadMessages = async () => {
               </Text>
             </TouchableOpacity>
 
-            <Text
-              style={{
-                fontSize: 11,
-                color: "#03030a",
-                marginTop: 5,
-                maxWidth: 250
-              }}
-            >
-              IMPORTANT: If your learning session requires multiple classes over several days, continue using video calls as needed. Click "END SESSION" only after the entire teaching/learning process is fully completed. This action updates credits and marks the session as finished.
-            </Text>
+            
           </View>
         ) : (
           <Text style={{ color: isMe ? "#fff" : "#000" }}>
@@ -261,17 +252,7 @@ const loadMessages = async () => {
             borderRadius: 10
           }}
         />
-        <TouchableOpacity
-          onPress={endSession}
-          style={{
-            backgroundColor: "red",
-            padding: 10,
-            margin: 10,
-            borderRadius: 10
-          }}
-        >
-          <Text style={{ color: "#fff" }}>END SESSION</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity
           onPress={sendMessage}
           style={{
